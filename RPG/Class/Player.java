@@ -24,26 +24,35 @@ public class Player
        _currentHp = _maxHp;        
     }
 
-    private int _maxHp ;
-    private int _currentHp ;
-    private int _armorPoint ;
-    private int _atkPoint ;
-    private int _manaPoint ;
+    private int _maxHp;
+    private int _currentHp;
+    private int _armorPoint;
+    private int _atkPoint;
+    private int _manaPoint;
+    private boolean _isDead = false;
 
+    public boolean IsDead()
+    {
+        return _isDead;
+    }
     public int GetHp()
     {
-        return _currentHp ;
+        return _currentHp;
     } 
     public void Heal(int heal) 
     {
       _currentHp += heal;
       if (_currentHp > _maxHp) 
       {
-         _currentHp = _maxHp ;
+         _currentHp = _maxHp;
       }
     }
     public void Damage(int damage)
     {
         _currentHp -= damage ;
+       if (_currentHp <= 0)
+       {
+           _isDead = true;
+       }
     }
 }
