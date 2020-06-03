@@ -4,13 +4,12 @@ import RPG.Class.Interface.Entity;
 
 public class Enemy implements Entity
 {
-    public Enemy(int maxHp, int armorPoint, int magicResist, int atkPoint, int manaPoint)
+    public Enemy(int maxHp, int armorPoint, int magicResist, int atkPoint)
     {
        _maxHp = maxHp;
        _armorPoint = armorPoint;
        _magicResist = magicResist;
        _atkPoint = atkPoint;
-       _manaPoint = manaPoint;
        _currentHp = _maxHp;
        
     }
@@ -19,7 +18,7 @@ public class Enemy implements Entity
     private int _armorPoint;
     private int _magicResist;   
     private int _atkPoint;
-    private int _manaPoint;
+    
     private boolean _isDead = false;
     
     public boolean IsDead()
@@ -49,6 +48,18 @@ public class Enemy implements Entity
     public void DamageEntity(Entity entity)
     {
        entity.Damage(_atkPoint);
+    }
+    public void MagicDamage(int damage)
+    {
+        _currentHp -= Math.max(damage - _magicResist, 0);
+       if (_currentHp <= 0)
+       {
+           _isDead = true;
+       }
+    }
+    public void MagicDamageEntity(Entity entity, DamageSpell spell)
+    {
+        entity.MagicDamage(spell.GetSpellDamage());
     }
 
 }
