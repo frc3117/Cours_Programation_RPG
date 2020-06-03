@@ -32,6 +32,7 @@ public class Player implements Entity
     private int _currentHp;
     private int _armorPoint;
     private int _atkPoint;
+    private int _magicResist;
     private int _manaPoint;
     private boolean _isDead = false;
 
@@ -63,4 +64,23 @@ public class Player implements Entity
     {
        entity.Damage(_atkPoint);
     }
+    public void MagicDamage(int damage)
+    {
+        _currentHp -= Math.max(damage - _magicResist, 0);
+       if (_currentHp <= 0)
+       {
+           _isDead = true;
+       }
+    }
+    public void MagicDamageEntity(Entity entity, DamageSpell spell)
+    {
+        if (_manaPoint >= spell.GetManaCost())
+        {
+          entity.MagicDamage(spell.GetSpellDamage());
+          _manaPoint -= spell.GetManaCost();
+        }
+        
+    }
+
+
 }
